@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Hello from '@/components/Hello'
+import IndexMain from '@/components/IndexMain'
+import Article from '@/components/Article'
 
 Vue.use(Router)
 
@@ -8,8 +9,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Hello',
-      component: Hello
+      name: 'RootPath',
+      component: IndexMain
+    },
+    {
+      path: '/topic/:id',
+      name: 'ArticleRouter',
+      component: Article
     }
   ]
 })

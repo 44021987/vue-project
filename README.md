@@ -2,7 +2,10 @@
 
 > A Vue.js project
 
-基于vue-cli脚手架，新增2个components,修改了App.vue文件
+## 新增知识点
+
+package.json新增vue-resource，执行npm install安装；安装后请求数据，设置简单路由，这个过程踩的坑是组件在浏览器里竟然可能会有缓存；新增article.vue组件；
+
 
 ## Build Setup
 

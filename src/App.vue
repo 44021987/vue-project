@@ -1,23 +1,19 @@
 <template>
   <div id="app">
-  	<main-sec></main-sec>
-  	<side-sec></side-sec>
+  	<router-view></router-view>
   </div>
 </template>
 
 <script>
-	import mainSec from '@/components/indexMain';
-	import sideSec from '@/components/indexSide';
 	export default {
-	  name: 'app',
-	  components: {
-	  	mainSec,
-	  	sideSec
-	  }
+	  name: 'app'
 	}
 </script>
 
 <style>
+	body {
+		background: #fff;
+	}
 	#app {
 		display: flex;
 		justify-content: space-around;
@@ -27,5 +23,6 @@
 	  text-align: center;
 	  color: #2c3e50;
 	  margin-top: 60px;
+	  text-align: left;
 	}
 </style>
