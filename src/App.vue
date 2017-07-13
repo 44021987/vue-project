@@ -1,28 +1,44 @@
 <template>
   <div id="app">
-  	<router-view></router-view>
+  	<o-head></o-head>
+  	<div id="content">
+	  	<router-view></router-view>
+  	</div>
   </div>
 </template>
 
 <script>
+	import oHead from '@/components/head';
 	export default {
-	  name: 'app'
+	  name: 'app',
+	  components: {
+	  	oHead
+	  }
 	}
 </script>
 
 <style>
+	* {
+		padding: 0;
+		margin: 0;
+	}
+	a {
+		text-decoration: none;
+		font-size: 14px;
+	}
 	body {
-		background: #fff;
+		font-size: 14px;
+		width: 100%;
 	}
 	#app {
-		display: flex;
-		justify-content: space-around;
 	  font-family: 'Avenir', Helvetica, Arial, sans-serif;
 	  -webkit-font-smoothing: antialiased;
 	  -moz-osx-font-smoothing: grayscale;
 	  text-align: center;
 	  color: #2c3e50;
-	  margin-top: 60px;
 	  text-align: left;
+	}
+	#content {
+		padding-top: 50px;
 	}
 </style>

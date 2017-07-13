@@ -1,17 +1,23 @@
 <template>
 	<div class="page_wrapper">
-		<div class="content_main">
-			<div class="page_info">
-				<span>发布于：{{dataList.create_at}}</span>
-				<span>浏览量：{{dataList.visit_count}}</span>
-				<span>作者：{{dataList.author.loginname}}</span>
-			</div>
-			<div class="page_title">
-				<h2>{{dataList.title}}</h2>
-			</div>
-			<div class="page_main" v-html="dataList.content"></div>
-		</div>
 		<side-sec :dataList="dataList"></side-sec>
+		<div class="page_main" v-html="dataList.content"></div>
+		<div class="replay">
+			<h3>精彩评论</h3>
+			<div class="replay_wrapper" v-for="item in replies">
+				<div class="replay_head">
+					<div>
+						<img :src="item.author.avatar_url" class="replay_img"/>
+					</div>
+					<div>
+						<h1>{{item.author.loginname}}</h1>
+						<div class="replay_time">{{String(item.create_at).match(/.{10}/)[0]}}</div>
+					</div>
+				</div>
+				<div class="replay_text" v-html="item.content"></div>
+			</div>
+		</div>
+		
 	</div>
 </template>
 
@@ -26,50 +32,108 @@
 				dataList: null
 			}
 		},
+		computed: {
+			replies () {
+				return this.dataList.replies.reverse();
+			}
+		},
 		beforeCreate () {
 			this.$http({
                 url: `https://cnodejs.org/api/v1${this.$route.path}`,
                 method: 'get',
             }).then((res) => {
                 if (res.body.success === true) {
-//              	console.log(JSON.stringify(res.data))
                     this.dataList = res.body.data;
+//                  console.log(JSON.stringify(this.dataList.replies))
                 } else {
                     this.dataList = 'Sorry, Something wrong happened when getting the remote data';
                 }
             }).catch((res) => {
                 console.log('ArticleCom.vue: ', res);
             });
+		},
+		updated () {
+			var oTag = [...document.querySelectorAll("replay .markdown-text")];
+			oTag.forEach((v, i) => {
+				var oP = v.querySelectorAll("p");
+				if (oP.length === 1) oP[0].style.textAlign = "center";
+			})
 		}
 	}
 </script>
 
-<style>
+<style lang="less">
 	body {
-		background: #F3F6FA;
+		background: #fafbfc;
 	}
 	.page_wrapper {
-		display: flex;
-		justify-content: center;
-	}
-	.content_main {
-		padding: 2rem 0;
-		width: 55%;
-		margin-right: 4%;
-		border: 1px solid #ddd;
-	}
-	.page_info, .page_title {
-		text-align: center;
+		width: 100%;
+		overflow: hidden;
 	}
 	.page_main {
-		width: 90%;
-		margin: auto;
-	}
-	.page_main img {
-		width: 80%;
-	}
-	.page_main li, .page_main p {
+		background: #fff;
 		line-height: 1.8;
+		.markdown-text {
+			padding: 1rem 0;
+			width: 90%;
+			margin: 0 auto;
+			ul {
+				padding-left: 1rem;
+			}
+			img {
+				width: 100%;
+			}
+			h1 {
+				font-size: 18px;
+				text-align: center;
+			}
+			p {
+				margin-bottom: 10px;
+				text-indent: 2;
+			}
+		}
 	}
-		
+	/*.page_main li, .page_main p {
+		line-height: 1.8;
+	}*/
+	.replay h3 {
+		line-height: 3;
+		padding-left: 5%;
+	}
+	.replay_wrapper {
+		padding: 1rem;
+		background: #fff;
+		margin-bottom: .8rem;
+		.replay_head {
+			display: flex;
+			align-items: center;
+			padding: 0.4rem;
+			h1 {
+				padding-bottom: 6px;
+				font-size: 14px;
+				font-weight: normal;
+				color: #333;
+			}
+			.replay_time {
+				color: #ccc;
+				font-size: 12px;
+			}
+			.replay_img {
+				margin-right: 12px;
+				width: 2.4rem;
+				height: 2.4rem;
+				border-radius: 50%;
+			}
+		}
+		.markdown-text {
+			transform: translate(0, -15%);
+			margin-top: 15%;
+			padding: 0 1rem;
+			text-align: left;
+			min-height: 4rem;
+			color: #333;
+			/*min-height: 5rem;*/
+			line-height: 1.5;
+		}
+	}	
 </style>

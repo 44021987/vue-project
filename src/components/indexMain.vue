@@ -10,8 +10,8 @@
 						<router-link :to="{name: 'ArticleRouter', params:{id: item.id}}">{{item.title}}</router-link>
 					</h2>
 					<div>
-						<span>回复：{{item.reply_count}}</span>
-						<span>创建于：{{item.create_at}}</span>
+						<span style="padding-right: 10px;">回复：{{item.reply_count}}</span>
+						<span>创建于：{{item.create_at.match(/.{10}/)[0]}}</span>
 					</div>
 				</div>
 			</li>
@@ -45,19 +45,31 @@
 	}
 </script>
 
-<style>
+<style lang="less">
 	.content_main {
-		width: 60%;
-		min-height: 500px;
-		border: 1px solid #DDDDDD;
-	}
-	.main_list_wrap>li {
-		display: flex;
-		text-align: left;
+		padding: 0 5%;
+		max-width: 900px;
+		margin: 0 auto;
+		.main_list_wrap {
+			width: 100%;
+			li {
+				display: flex;
+				align-items: center;
+				text-align: left;
+				padding: 1rem 0;
+				border-bottom: 1px solid #ddd;
+				h2{
+					padding-bottom: 1rem;
+					font-weight: normal;
+					line-height: 1;
+				}
+			}
+		}
 	}
 	.main_list_img {
 		width: 4rem;
 		height: 4rem;
-		margin-right: 2rem;
+		margin-right: 12px;
+		border: 1px solid #F3F3F3;
 	}
 </style>
