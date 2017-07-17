@@ -2,7 +2,9 @@
 	<div class="content_side">
 		<div class="author_info">
 			<div>
-				<img class="author_img" :src="dataList.author.avatar_url"/>
+				<router-link :to="{name: 'UsersRouter', params: {id: dataList.author.loginname}}">
+					<img class="author_img" :src="dataList.author.avatar_url"/>
+				</router-link>
 			</div>
 			<div>
 				<h1>{{dataList.author.loginname}}</h1>

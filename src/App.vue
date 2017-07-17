@@ -2,7 +2,8 @@
   <div id="app">
   	<o-head></o-head>
   	<div id="content">
-	  	<router-view></router-view>
+	  	<router-view name="main"></router-view>
+	  	<router-view name="topic"></router-view>
   	</div>
   </div>
 </template>
@@ -41,4 +42,6 @@
 	#content {
 		padding-top: 50px;
 	}
+	
+
 </style>

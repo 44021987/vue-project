@@ -2,7 +2,7 @@
 
 > A Vue.js project
 
-新增评论，修改样式，新增head组件
+### 修改路由，新增用户界面
 
 ## Build Setup
 

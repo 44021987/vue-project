@@ -7,7 +7,10 @@
 			<div class="replay_wrapper" v-for="item in replies">
 				<div class="replay_head">
 					<div>
-						<img :src="item.author.avatar_url" class="replay_img"/>
+						<router-link :to="{name: 'UsersRouter', params: {id: item.author.loginname}}">
+							<!--<img class="main_list_img" :src="item.author.avatar_url" :title="item.author.loginname"/>-->
+							<img :src="item.author.avatar_url" class="replay_img"/>
+						</router-link>
 					</div>
 					<div>
 						<h1>{{item.author.loginname}}</h1>
@@ -29,7 +32,7 @@
 		},
 		data () {
 			return {
-				dataList: null
+				dataList: []
 			}
 		},
 		computed: {
@@ -125,14 +128,16 @@
 				border-radius: 50%;
 			}
 		}
-		.markdown-text {
-			transform: translate(0, -15%);
-			margin-top: 15%;
+		.replay_text {
+			display: flex;
+			justify-content: flex-start;
+			align-items: center;
 			padding: 0 1rem;
 			text-align: left;
 			min-height: 4rem;
+		}
+		.markdown-text {
 			color: #333;
-			/*min-height: 5rem;*/
 			line-height: 1.5;
 		}
 	}	

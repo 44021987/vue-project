@@ -3,7 +3,9 @@
 		<ul class="main_list_wrap" v-for="item in articleList">
 			<li>
 				<div>
-					<img class="main_list_img" :src="item.author.avatar_url" :title="item.author.loginname"/>
+					<router-link :to="{name: 'UsersRouter', params: {id: item.author.loginname}}">
+						<img class="main_list_img" :src="item.author.avatar_url" :title="item.author.loginname"/>
+					</router-link>
 				</div>
 				<div>
 					<h2>
@@ -23,7 +25,8 @@
 	export default {
 		data () {
 			return {
-				articleList: []
+				articleList: [],
+				limit: 0
 			}
 		},
 		created () {
@@ -37,10 +40,37 @@
                 }
 			}).then((res) => {
                 this.articleList = res.body.data;
-                console.log(this.articleList[0]);
             }).catch((res) => {
                 console.log('MaiSec.vue: ', res);
             });
+		},
+		methods: {
+			bodyScroll () {
+				const clientHeight = document.documentElement.clientHeight;
+				const scrollTop = document.body.scrollTop;
+				const scrollHeight = document.body.scrollHeight;
+				if (clientHeight + scrollTop === scrollHeight) this.getArticleList();
+			},
+			getArticleList () {
+				this.limit += 10;
+				this.$http({
+					url: "https://cnodejs.org/api/v1/topics",
+					methods: "get",
+					params: {
+	                    page: 1,
+	                    limit: this.limit,
+	                    mdrender: 'false',
+	                }
+				}).then((res) => {
+	                this.articleList = res.body.data;
+//	                console.log(this.articleList[0]);
+	            }).catch((res) => {
+	                console.log('MaiSec.vue: ', res);
+	            });
+			}
+		},
+		mounted () {
+			window.addEventListener("scroll", this.bodyScroll, false);
 		}
 	}
 </script>
