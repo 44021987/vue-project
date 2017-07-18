@@ -1,6 +1,6 @@
 <template>
 	<div id="header">
-		<span v-show="routerRoot" class="go_back" onclick="window.history.go(-1)"></span>
+		<i v-show="routerRoot" class="go_back el-icon-arrow-left" onclick="window.history.go(-1)"></i>
 		<h5 v-show="!routerRoot">首页</h5>
 	</div>
 </template>
@@ -35,14 +35,14 @@
 			font-weight: normal;
 			font-size: 18px;
 		}
-		span.go_back {
+		i.go_back {
 			position: absolute;
-			left: 5%;
 			width: 30px;
-			&::before{
-				content: "\2329";
-				font-size: 16px;
-			}
+			top: 50%;
+			left: 5%;
+			margin-top: -8px;
+			font-size: 16px;
+			font-weight: normal;
 		}
 	}
 </style>

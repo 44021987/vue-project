@@ -4,8 +4,12 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import App from './App'
 import router from './router'
-Vue.use(VueResource);
+import Element from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
+import 'font-awesome/css/font-awesome.css'
 
+Vue.use(VueResource);
+Vue.use(Element);
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

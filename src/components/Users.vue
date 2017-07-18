@@ -1,14 +1,14 @@
 <template>
-	<div class="user_wrapper">
+	<div class="user_wrapper" v-loading="loading">
 		<div class="user_author">
 			<div>
 				<img :src="userInfo.avatar_url" alt="userInfo.loginname" />
 			</div>
 			<div>
 				<h4>{{userInfo.loginname}}</h4>
-				<h5>积分：{{userInfo.score}}</h5>
-				<h5>https://github.com/{{userInfo.githubUsername}}</h5>
-				<h5>{{String(userInfo.create_at).match(/.{10}/)[0]}}</h5>
+				<h5><i class="fa fa-heart"></i>&nbsp; {{userInfo.score}}</h5>
+				<h5><i class="fa fa-github"></i>&nbsp; https://github.com/{{userInfo.githubUsername}}</h5>
+				<h5><i class="fa fa-calendar"></i>&nbsp; {{String(userInfo.create_at).match(/.{10}/)[0]}}</h5>
 			</div>
 		</div>
 		<div class="user_active"  v-show="userInfo.recent_replies.length>0">
@@ -54,7 +54,8 @@
 	export default {
 		data () {
 			return {
-				userInfo: {}
+				userInfo: {},
+				loading: true
 			}
 		},
 		created() {
@@ -77,7 +78,12 @@
                 console.log('UserCom.vue: ', res);
             });
             next();
-        }
+        },
+        watch: {
+			userInfo (val) {
+				if (val) this.loading = false;
+			}
+		}
 	}
 </script>
 
@@ -125,7 +131,9 @@
 			}
 			h5 {
 				padding-bottom: 1rem;
-				font-size: 14px;
+				a {
+					font-size: 16px;
+				}
 			}
 			h6 {
 				font-size: 12px;

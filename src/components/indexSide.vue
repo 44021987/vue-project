@@ -8,9 +8,12 @@
 			</div>
 			<div>
 				<h1>{{dataList.author.loginname}}</h1>
-				<div>浏览量：{{dataList.visit_count}}</div>
-				<div>评论：{{dataList.reply_count}}</div>
-				<div>https://github.com/{{dataList.author.loginname}}</div>
+				<h6>浏览量：{{dataList.visit_count}}</h6>
+				<h6>评论：{{dataList.reply_count}}</h6>
+				<h6>
+					<i class="fa fa-github"></i> 
+					<router-link :to="{path: 'https://github.com/'+dataList.author.loginname}">https://github.com/{{dataList.author.loginname}}</router-link>
+				</h6>
 			</div>
 		</div>
 	</div>
@@ -41,13 +44,23 @@
 			height: 5.5rem;
 			border: 6px solid #fff;
 			border-radius: 3px;
-			margin-right: 1rem;
+			margin-right: .5rem;
 		}
 		h1 {
 			color: #24292e;
 			font-size: 16px;
 			margin: 0;
 			margin-bottom: 10px;
+		}
+		h6 {
+			font-weight: normal;
+			line-height: 1.5;
+			a {
+				font-size: 14px;
+			}
+		}
+		.fa-github {
+			font-size: 20px;
 		}
 	}
 </style>

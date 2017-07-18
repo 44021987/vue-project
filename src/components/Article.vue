@@ -1,9 +1,9 @@
 <template>
-	<div class="page_wrapper">
+	<div class="page_wrapper" v-loading="loading">
 		<side-sec :dataList="dataList"></side-sec>
 		<div class="page_main" v-html="dataList.content"></div>
 		<div class="replay">
-			<h3>精彩评论</h3>
+			<h3 v-show="!!replies">精彩评论</h3>
 			<div class="replay_wrapper" v-for="item in replies">
 				<div class="replay_head">
 					<div>
@@ -20,7 +20,6 @@
 				<div class="replay_text" v-html="item.content"></div>
 			</div>
 		</div>
-		
 	</div>
 </template>
 
@@ -32,11 +31,13 @@
 		},
 		data () {
 			return {
-				dataList: []
+				dataList: [],
+				loading: true
 			}
 		},
 		computed: {
 			replies () {
+				if (!this.dataList.replies) return;
 				return this.dataList.replies.reverse();
 			}
 		},
@@ -61,6 +62,11 @@
 				var oP = v.querySelectorAll("p");
 				if (oP.length === 1) oP[0].style.textAlign = "center";
 			})
+		},
+		watch: {
+			dataList (val) {
+				if (val) this.loading = false;
+			}
 		}
 	}
 </script>

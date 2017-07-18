@@ -25,11 +25,15 @@
 	}
 	a {
 		text-decoration: none;
-		font-size: 14px;
+		font-size: 16px;
 	}
 	body {
-		font-size: 14px;
+		font-size: 16px;
 		width: 100%;
+	}
+	.el-loading-mask {
+		position: fixed;
+		top: 50px;
 	}
 	#app {
 	  font-family: 'Avenir', Helvetica, Arial, sans-serif;
@@ -38,6 +42,8 @@
 	  text-align: center;
 	  color: #2c3e50;
 	  text-align: left;
+	  max-width: 640px;
+	  margin: 0 auto;
 	}
 	#content {
 		padding-top: 50px;

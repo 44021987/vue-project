@@ -2,7 +2,16 @@
 
 > A Vue.js project
 
-### 修改路由，新增用户界面
+### 引入element-ui
+- 修改package.json 里新增"element-ui": "1.3.7"
+- 修改main.js => import Element from 'element-ui' => import 'element-ui/lib/theme-default/index.css' => Vue.use(Element);
+
+### 引入字体图标
+- npm install font-awesome
+- 在main.js里 import 'font-awesome/css/font-awesome.css'
+
+### 使用element-ui loading加载
+- 详情见具体页面
 
 ## Build Setup
 

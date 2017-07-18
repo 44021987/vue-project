@@ -1,7 +1,7 @@
 <template>
-	<div class="content_main">
-		<ul class="main_list_wrap" v-for="item in articleList">
-			<li>
+	<div class="content_main" v-loading="loading">
+		<ul class="main_list_wrap">
+			<li v-for="item in articleList">
 				<div>
 					<router-link :to="{name: 'UsersRouter', params: {id: item.author.loginname}}">
 						<img class="main_list_img" :src="item.author.avatar_url" :title="item.author.loginname"/>
@@ -11,13 +11,16 @@
 					<h2>
 						<router-link :to="{name: 'ArticleRouter', params:{id: item.id}}">{{item.title}}</router-link>
 					</h2>
-					<div>
+					<div class="create_wrap">
 						<span style="padding-right: 10px;">回复：{{item.reply_count}}</span>
 						<span>创建于：{{item.create_at.match(/.{10}/)[0]}}</span>
 					</div>
 				</div>
 			</li>
 		</ul>
+		<div style="text-align: center; padding-bottom: .4rem;">
+			<i class="el-icon-loading"></i>
+		</div>
 	</div>
 </template>
 
@@ -26,7 +29,8 @@
 		data () {
 			return {
 				articleList: [],
-				limit: 0
+				limit: 0,
+				loading: true
 			}
 		},
 		created () {
@@ -71,27 +75,40 @@
 		},
 		mounted () {
 			window.addEventListener("scroll", this.bodyScroll, false);
+		},
+		watch: {
+			articleList (val) {
+				if (val) this.loading = false;
+			}
 		}
 	}
 </script>
 
 <style lang="less">
+	
 	.content_main {
 		padding: 0 5%;
 		max-width: 900px;
 		margin: 0 auto;
 		.main_list_wrap {
 			width: 100%;
+			overflow: hidden;
 			li {
 				display: flex;
 				align-items: center;
 				text-align: left;
 				padding: 1rem 0;
 				border-bottom: 1px solid #ddd;
+				&:last-child {
+					border-bottom: none;
+				}
 				h2{
 					padding-bottom: 1rem;
 					font-weight: normal;
 					line-height: 1;
+				}
+				.create_wrap {
+					font-size: 14px;
 				}
 			}
 		}
