@@ -13,6 +13,21 @@
 ### 使用element-ui loading加载
 - 详情见具体页面
 
+## 关于打包字体图标路径不正确的问题解决
+- 修改 build => utils.js 设置publicPath
+```bash
+  // (which is the case during production build)
+    if (options.extract) {
+      return ExtractTextPlugin.extract({
+        use: loaders,
+        fallback: 'vue-style-loader', 
+        publicPath: '../../'  // 设置路径
+      })
+    } else {
+      return ['vue-style-loader'].concat(loaders)
+    }
+```
+
 ## Build Setup
 
 ``` bash
