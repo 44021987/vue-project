@@ -73,6 +73,11 @@
 	                }
 				}).then((res) => {
 	                this.articleList = res.data.data;
+	                this.articleList.sort(function (a, b) {
+	                	const aTimeString = (a.create_at.match(/.{10}/)[0]).replace(/-/g, "");
+	                	const bTimeString = (b.create_at.match(/.{10}/)[0]).replace(/-/g, "");
+	                	return parseInt(bTimeString) - parseInt(aTimeString);
+	                })
 	            }).catch((res) => {
 	                console.log('MaiSec.vue: ', res);
 	            });
