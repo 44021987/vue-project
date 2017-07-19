@@ -12,7 +12,7 @@
 				<h6>评论：{{dataList.reply_count}}</h6>
 				<h6>
 					<i class="fa fa-github"></i> 
-					<router-link :to="{path: 'https://github.com/'+dataList.author.loginname}">https://github.com/{{dataList.author.loginname}}</router-link>
+					<a :href="'https://github.com/'+dataList.author.loginname">https://github.com/{{dataList.author.loginname}}</a>
 				</h6>
 			</div>
 		</div>

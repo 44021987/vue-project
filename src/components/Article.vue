@@ -46,7 +46,6 @@
                 url: `https://cnodejs.org/api/v1${this.$route.path}`,
                 method: 'get',
             }).then((res) => {
-            	console.log(res)
                 if (res.statusText === "OK") {
                     this.dataList = res.data.data;
                 } else {

@@ -7,7 +7,9 @@
 			<div>
 				<h4>{{userInfo.loginname}}</h4>
 				<h5><i class="fa fa-heart"></i>&nbsp; {{userInfo.score}}</h5>
-				<h5><i class="fa fa-github"></i>&nbsp; https://github.com/{{userInfo.githubUsername}}</h5>
+				<h5>
+					<i class="fa fa-github"></i>&nbsp; <a :href="'https://github.com/'+userInfo.githubUsername">https://github.com/{{userInfo.githubUsername}}</a>
+				</h5>
 				<h5><i class="fa fa-calendar"></i>&nbsp; {{String(userInfo.create_at).match(/.{10}/)[0]}}</h5>
 			</div>
 		</div>

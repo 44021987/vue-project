@@ -47,7 +47,6 @@
                 this.articleList.sort(function (a, b) {
                 	const aTimeString = (a.create_at.match(/.{10}/)[0]).replace(/-/g, "");
                 	const bTimeString = (b.create_at.match(/.{10}/)[0]).replace(/-/g, "");
-                	console.log(aTimeString, bTimeString)
                 	return parseInt(bTimeString) - parseInt(aTimeString);
                 })
 //              console.log(JSON.stringify(this.articleList))
