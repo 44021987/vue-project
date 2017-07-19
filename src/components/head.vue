@@ -43,6 +43,7 @@
 			margin-top: -8px;
 			font-size: 16px;
 			font-weight: normal;
+			cursor: pointer;
 		}
 	}
 </style>

@@ -46,9 +46,9 @@
                 url: `https://cnodejs.org/api/v1${this.$route.path}`,
                 method: 'get',
             }).then((res) => {
-                if (res.body.success === true) {
-                    this.dataList = res.body.data;
-//                  console.log(JSON.stringify(this.dataList.replies))
+            	console.log(res)
+                if (res.statusText === "OK") {
+                    this.dataList = res.data.data;
                 } else {
                     this.dataList = 'Sorry, Something wrong happened when getting the remote data';
                 }

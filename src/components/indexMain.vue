@@ -43,7 +43,14 @@
                     mdrender: 'false',
                 }
 			}).then((res) => {
-                this.articleList = res.body.data;
+                this.articleList = res.data.data;
+                this.articleList.sort(function (a, b) {
+                	const aTimeString = (a.create_at.match(/.{10}/)[0]).replace(/-/g, "");
+                	const bTimeString = (b.create_at.match(/.{10}/)[0]).replace(/-/g, "");
+                	console.log(aTimeString, bTimeString)
+                	return parseInt(bTimeString) - parseInt(aTimeString);
+                })
+//              console.log(JSON.stringify(this.articleList))
             }).catch((res) => {
                 console.log('MaiSec.vue: ', res);
             });
@@ -66,8 +73,7 @@
 	                    mdrender: 'false',
 	                }
 				}).then((res) => {
-	                this.articleList = res.body.data;
-//	                console.log(this.articleList[0]);
+	                this.articleList = res.data.data;
 	            }).catch((res) => {
 	                console.log('MaiSec.vue: ', res);
 	            });

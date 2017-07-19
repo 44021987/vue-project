@@ -63,7 +63,7 @@
                 url: `https://cnodejs.org/api/v1${this.$route.path}`,
                 method: 'get',
             }).then((res) => {
-                this.userInfo = res.body.data;
+                this.userInfo = res.data.data;
             }).catch((res) => {
                 console.log('UserCom.vue: ', res);
             });
@@ -73,7 +73,7 @@
                 url: `https://cnodejs.org/api/v1${to.path}`,
                 method: 'get',
             }).then((res) => {
-                this.userInfo = res.body.data;
+                this.userInfo = res.data.data;
             }).catch((res) => {
                 console.log('UserCom.vue: ', res);
             });
