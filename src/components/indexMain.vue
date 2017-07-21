@@ -29,7 +29,7 @@
 		data () {
 			return {
 				articleList: [],
-				limit: 0,
+				limit: 10,
 				loading: true
 			}
 		},
@@ -49,7 +49,6 @@
                 	const bTimeString = (b.create_at.match(/.{10}/)[0]).replace(/-/g, "");
                 	return parseInt(bTimeString) - parseInt(aTimeString);
                 })
-//              console.log(JSON.stringify(this.articleList))
             }).catch((res) => {
                 console.log('MaiSec.vue: ', res);
             });
@@ -84,7 +83,7 @@
 			}
 		},
 		mounted () {
-			window.addEventListener("scroll", this.bodyScroll, false);
+			window.addEventListener("scroll", this.bodyScroll);
 		},
 		watch: {
 			articleList (val) {

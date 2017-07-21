@@ -1,6 +1,6 @@
 <template>
 	<div id="header">
-		<i v-show="routerRoot" class="go_back el-icon-arrow-left" onclick="window.history.go(-1)"></i>
+		<i v-show="routerRoot" class="go_back el-icon-arrow-left" @click="goBack"></i>
 		<h5 v-show="!routerRoot">首页</h5>
 	</div>
 </template>
@@ -15,6 +15,11 @@
 			routerRoot () {
 				if (this.$route.name === "RootPath") return false;
 				return true;
+			}
+		},
+		methods: {
+			goBack () {
+				this.$router.goBack();
 			}
 		}
 	}

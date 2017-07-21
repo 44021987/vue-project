@@ -14,24 +14,17 @@ export default new Router({
     {
       path: '/',
       name: 'RootPath',
-      components: {
-      	main: IndexMain
-      }
+      component: IndexMain
     },
     {
       path: '/topic/:id',
       name: 'ArticleRouter',
-      components: {
-      	topic: Article,
-      	user: Users
-      }
+      component: Article    
     },
     {
       path: '/user/:id',
       name: 'UsersRouter',
-      components: {
-      	main: Users
-      }
+      component: Users
     }
   ]
 })

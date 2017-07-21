@@ -2,8 +2,9 @@
   <div id="app">
   	<o-head></o-head>
   	<div id="content">
-	  	<router-view name="main"></router-view>
-	  	<router-view name="topic"></router-view>
+  		<transition :name="transitionName" mode="out-in" keep-alive>
+	  			<router-view></router-view>
+  		</transition>
   	</div>
   </div>
 </template>
@@ -14,6 +15,22 @@
 	  name: 'app',
 	  components: {
 	  	oHead
+	  },
+	  data () {
+	  	return {
+	  		transitionName: ""
+	  	}
+	  },
+	  watch: {
+	  	'$route' (to, from) {
+	  		let isBack = this.$router.isBack
+	  		if (isBack) {
+	  		   this.transitionName = 'slide-left'
+	  		} else {
+	  		   this.transitionName = 'slide-right'
+	  		}
+	  		this.$router.isBack = false;
+	  	}
 	  }
 	}
 </script>
@@ -48,6 +65,26 @@
 	#content {
 		padding-top: 50px;
 	}
-	
+	/*后退*/
+	.slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active {
+		transition: all .15s ease
+	}
+	.slide-right-enter {
+		transform: translateX(-100px);
+	  	opacity: 0
+	}
+	.slide-right-leave-to {
+		transform: translateX(100px);
+	  	opacity: 0
+	}
+	/*前进*/
+	.slide-left-enter {
+		transform: translateX(100px);
+	  	opacity: 0
+	}
+	.slide-left-leave-to {
+		transform: translateX(-100px);
+	  	opacity: 0
+	}
 
 </style>
