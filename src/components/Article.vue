@@ -77,6 +77,7 @@
 	.page_wrapper {
 		width: 100%;
 		overflow: hidden;
+		text-align: left;
 	}
 	.page_main {
 		background: #fff;

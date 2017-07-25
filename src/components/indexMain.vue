@@ -1,26 +1,28 @@
 <template>
-	<div class="content_main" v-loading="loading">
+	<div class="content_main">
 		<ul class="main_list_wrap">
 			<li v-for="item in articleList">
-				<div>
-					<router-link :to="{name: 'UsersRouter', params: {id: item.author.loginname}}">
+				<router-link :to="{name: 'ArticleRouter', params:{id: item.id}}">
+					<h2 :title="getTabInfo(item.top?'top':item.tab)" :class="item.top?'top':item.tab">{{item.title}}</h2>
+					<div class="content">
 						<img class="main_list_img" :src="item.author.avatar_url" :title="item.author.loginname"/>
-					</router-link>
-				</div>
-				<div>
-					<h2>
-						<router-link :to="{name: 'ArticleRouter', params:{id: item.id}}">{{item.title}}</router-link>
-					</h2>
-					<div class="create_wrap">
-						<span style="padding-right: 10px;">回复：{{item.reply_count}}</span>
-						<span>创建于：{{item.create_at.match(/.{10}/)[0]}}</span>
+						<div class="create_wrap">
+							<p>
+								<span>{{item.author.loginname}}</span>
+								<span>
+									<span class="replay">{{item.reply_count}}</span>
+									<span> / {{item.visit_count}}</span>
+								</span>
+							</p>
+							<p style="font-size: 12px;">
+								<span>创建于：{{item.create_at.match(/.{10}/)[0]}}</span>
+								<span>{{item.last_reply_at.match(/.{10}/)[0]}}</span>
+							</p>
+						</div>
 					</div>
-				</div>
+				</router-link>
 			</li>
 		</ul>
-		<div style="text-align: center; padding-bottom: .4rem;">
-			<i class="el-icon-loading"></i>
-		</div>
 	</div>
 </template>
 
@@ -30,7 +32,7 @@
 			return {
 				articleList: [],
 				limit: 10,
-				loading: true
+				loadingData: true
 			}
 		},
 		created () {
@@ -44,23 +46,22 @@
                 }
 			}).then((res) => {
                 this.articleList = res.data.data;
-                this.articleList.sort(function (a, b) {
-                	const aTimeString = (a.create_at.match(/.{10}/)[0]).replace(/-/g, "");
-                	const bTimeString = (b.create_at.match(/.{10}/)[0]).replace(/-/g, "");
-                	return parseInt(bTimeString) - parseInt(aTimeString);
-                })
             }).catch((res) => {
                 console.log('MaiSec.vue: ', res);
             });
 		},
 		methods: {
 			bodyScroll () {
+				// 页面滚动到一定位置加载数据
 				const clientHeight = document.documentElement.clientHeight;
 				const scrollTop = document.body.scrollTop;
 				const scrollHeight = document.body.scrollHeight;
-				if (clientHeight + scrollTop === scrollHeight) this.getArticleList();
+				// 上一次数据请求完成后再加载,判断this.loadingData
+				if (parseInt(clientHeight + scrollTop) >  parseInt(scrollHeight/1.2) && this.loadingData) this.getArticleList();
 			},
+			// 请求数据每次10条
 			getArticleList () {
+				this.loadingData = !this.loadingData;
 				this.limit += 10;
 				this.$http({
 					url: "https://cnodejs.org/api/v1/topics",
@@ -72,23 +73,37 @@
 	                }
 				}).then((res) => {
 	                this.articleList = res.data.data;
-	                this.articleList.sort(function (a, b) {
-	                	const aTimeString = (a.create_at.match(/.{10}/)[0]).replace(/-/g, "");
-	                	const bTimeString = (b.create_at.match(/.{10}/)[0]).replace(/-/g, "");
-	                	return parseInt(bTimeString) - parseInt(aTimeString);
-	                })
+	                this.loadingData = !this.loadingData;
 	            }).catch((res) => {
 	                console.log('MaiSec.vue: ', res);
 	            });
+			},
+			getTabInfo (tab) {
+				let str = "";
+				switch (tab){
+					case "top":
+						str = "顶置";
+						break;
+					case "ask":
+						str = "问答";
+						break;
+					case "share":
+						str = "分享";
+						break;
+					default:
+						str = "其他";
+						break;
+				}
+				return str;
 			}
 		},
 		mounted () {
 			window.addEventListener("scroll", this.bodyScroll);
 		},
 		watch: {
-			articleList (val) {
-				if (val) this.loading = false;
-			}
+//			articleList (val) {
+//				if (val) this.loadingData = false;
+//			}
 		}
 	}
 </script>
@@ -96,36 +111,70 @@
 <style lang="less">
 	
 	.content_main {
-		padding: 0 5%;
-		max-width: 900px;
-		margin: 0 auto;
 		.main_list_wrap {
-			width: 100%;
 			overflow: hidden;
 			li {
-				display: flex;
-				align-items: center;
-				text-align: left;
-				padding: 1rem 0;
+				padding: .6rem 15px;
 				border-bottom: 1px solid #ddd;
 				&:last-child {
 					border-bottom: none;
 				}
+				.content {
+					display: flex;
+					align-items: center;
+				}
 				h2{
-					padding-bottom: 1rem;
-					font-weight: normal;
+					color: #2c3e50;
+					text-align: left;
+					font-size: 18px;
+					padding-bottom: .8rem;
 					line-height: 1;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+					&::before {
+						content: attr(title);
+						padding: 4px;
+						margin-right: 1rem;
+						display: inline-block;
+						background: yellowgreen;
+						color: #fff;
+						font-size: 14px;
+						font-weight: normal;
+						border-radius: 3px;
+					}
+					&.ask::before {
+						background: #3498db;
+					}
+					&.share::before {
+						background: #1abc9c;
+					}
+					&.top::before {
+						background: red;
+					}
 				}
 				.create_wrap {
+					flex: 1;
 					font-size: 14px;
+					p {
+						display: flex;
+						justify-content: space-between;
+						color: #333;
+						line-height: 1.5;
+						.replay {
+							color: #1abc9c;
+							font-weight: bold;
+						}
+					}
 				}
 			}
 		}
 	}
 	.main_list_img {
-		width: 4rem;
-		height: 4rem;
+		width: 2.5rem;
+		height: 2.5rem;
 		margin-right: 12px;
 		border: 1px solid #F3F3F3;
+		border-radius: 50%;
 	}
 </style>

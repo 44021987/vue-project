@@ -58,9 +58,6 @@
 	  -moz-osx-font-smoothing: grayscale;
 	  text-align: center;
 	  color: #2c3e50;
-	  text-align: left;
-	  max-width: 640px;
-	  margin: 0 auto;
 	}
 	#content {
 		padding-top: 50px;
