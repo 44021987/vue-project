@@ -12,7 +12,7 @@ Router.prototype.goBack = function () {
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/index/:id',
       name: 'RootPath',
       component: IndexMain
     },
@@ -25,6 +25,10 @@ export default new Router({
       path: '/user/:id',
       name: 'UsersRouter',
       component: Users
+    },
+    {
+    	path: '*',
+    	component: IndexMain
     }
   ]
 })

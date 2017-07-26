@@ -36,19 +36,7 @@
 			}
 		},
 		created () {
-			this.$http({
-				url: "https://cnodejs.org/api/v1/topics",
-				methods: "get",
-				params: {
-                    page: 1,
-                    limit: 10,
-                    mdrender: 'false',
-                }
-			}).then((res) => {
-                this.articleList = res.data.data;
-            }).catch((res) => {
-                console.log('MaiSec.vue: ', res);
-            });
+			this.getArticleList();
 		},
 		methods: {
 			bodyScroll () {
@@ -59,12 +47,16 @@
 				// 上一次数据请求完成后再加载,判断this.loadingData
 				if (parseInt(clientHeight + scrollTop) >  parseInt(scrollHeight/1.2) && this.loadingData) this.getArticleList();
 			},
+			test () {
+				console.log(this.$route.path)
+			},
 			// 请求数据每次10条
-			getArticleList () {
+			getArticleList (tab="all") {
+				if (!this.loadingData) return;
 				this.loadingData = !this.loadingData;
 				this.limit += 10;
 				this.$http({
-					url: "https://cnodejs.org/api/v1/topics",
+					url: `https://cnodejs.org/api/v1/topics?tab=${tab}`,
 					methods: "get",
 					params: {
 	                    page: 1,
@@ -90,6 +82,9 @@
 					case "share":
 						str = "分享";
 						break;
+					case "job":
+						str = "招聘";
+						break;
 					default:
 						str = "其他";
 						break;
@@ -101,9 +96,14 @@
 			window.addEventListener("scroll", this.bodyScroll);
 		},
 		watch: {
-//			articleList (val) {
-//				if (val) this.loadingData = false;
-//			}
+			$route (to, from) {
+				console.log()
+				let tab = to.path.split("/").pop();
+				this.loadingData = true;
+				this.limit = 10;
+				this.getArticleList(tab)
+			}
+
 		}
 	}
 </script>
@@ -151,6 +151,9 @@
 					}
 					&.top::before {
 						background: red;
+					}
+					&.job::before {
+						background: #9b59b6;
 					}
 				}
 				.create_wrap {
