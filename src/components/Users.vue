@@ -6,7 +6,7 @@
 			</div>
 			<div>
 				<h4>{{userInfo.loginname}}</h4>
-				<h5><i class="fa fa-heart"></i>&nbsp; {{userInfo.score}}</h5>
+				<h5><i class="fa fa-thumbs-up"></i>&nbsp; {{userInfo.score}}</h5>
 				<h5>
 					<i class="fa fa-github"></i>&nbsp; <a :href="'https://github.com/'+userInfo.githubUsername">https://github.com/{{userInfo.githubUsername}}</a>
 				</h5>
@@ -92,6 +92,9 @@
 <style lang="less">
 	li {
 		list-style: none;
+	}
+	.user_wrapper {
+		text-align: left;
 	}
 	.padding_space {
 		padding: 1rem;

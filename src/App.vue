@@ -19,6 +19,7 @@
 	  data () {
 	  	return {
 	  		transitionName: ""
+	  		
 	  	}
 	  },
 	  watch: {
@@ -60,6 +61,7 @@
 	  color: #2c3e50;
 	}
 	#content {
+		margin-top: .5rem;
 		padding-top: 50px;
 	}
 	/*后退*/

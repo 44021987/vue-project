@@ -1,12 +1,12 @@
 <template>
 	<div>
 		<div id="header">
-			<i v-show="routerRoot" class="go_back el-icon-arrow-left" @click="goBack"></i>
-			<h5 v-show="!routerRoot">首页</h5>
+			<i v-show="showBack" class="go_back el-icon-arrow-left" @click="goBack"></i>
+			<h5>{{title}}</h5>
 			<i id="menu" class="fa fa-bars" @click="showNav"></i>
 		</div>
 		<div class="menu_cover" v-show="showCover" @click="hideNav"></div>
-		<menu-nav :showCover="showCover"></menu-nav>
+		<menu-nav :showCover="showCover" v-on:hideMenu="hideNav"></menu-nav>
 	</div>
 </template>
 
@@ -19,13 +19,13 @@
 		data () {
 			return {
 				showCover: false,
+				title: "",
+				showBack: true
 			}
 		},
-		computed: {
-			routerRoot () {
-				if (this.$route.name === "RootPath") return false;
-				return true;
-			}
+		created () {
+			const tab = this.$route.path.split("/").pop();
+			this.getHeadTitle(tab);
 		},
 		methods: {
 			goBack () {
@@ -38,6 +38,62 @@
 			hideNav () {
 				this.showCover = !this.showCover;
 				document.body.style.overflow = "auto";
+			},
+			// 设置head部分的title
+			getHeadTitle (route) {
+				this.showBack = true;
+				switch (this.$route.name) {
+					case "RootPath":
+						this.title = this.getPath(route);
+						break;
+					case "ArticleRouter":
+						this.title = "文章";
+						break;
+					case "UsersRouter":
+						this.title = "用户";
+						break;
+					case undefined:
+						this.title = "首页";
+						this.showBack = !this.showBack;
+						break;
+					default:
+						this.title = "123";
+						break;
+				}
+			},
+			getPath (tab) {
+				let str = "";
+				console.log(tab)
+				switch (tab){
+					case "all":
+						str = "全部";
+						break;
+					case "good":
+						str = "精华";
+						break;
+					case "ask":
+						str = "问答";
+						break;
+					case "share":
+						str = "分享";
+						break;
+					case "job":
+						str = "招聘";
+						break;
+					case "about":
+						str = "关于";
+						break;
+					default:
+						str = "";
+						break;
+				}
+				return str;
+			}
+		},
+		watch: {
+			$route (to, from) {
+				const tab = to.path.split("/").pop();
+				this.getHeadTitle(tab);
 			}
 		}
 	}

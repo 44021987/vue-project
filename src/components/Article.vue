@@ -1,9 +1,10 @@
 <template>
 	<div class="page_wrapper" v-loading="loading">
+		<h1 class="article_title">{{dataList.title}}</h1>
 		<side-sec :dataList="dataList"></side-sec>
 		<div class="page_main" v-html="dataList.content"></div>
 		<div class="replay">
-			<h3 v-show="!!replies">精彩评论</h3>
+			<h3 v-show="!!replies">评论</h3>
 			<div class="replay_wrapper" v-for="item in replies">
 				<div class="replay_head">
 					<div>
@@ -78,6 +79,13 @@
 		width: 100%;
 		overflow: hidden;
 		text-align: left;
+		.article_title {
+			line-height: 4rem;
+			font-size: 16px;
+			padding-left: 1rem;
+			background: #fff;
+			
+		}
 	}
 	.page_main {
 		background: #fff;
@@ -86,6 +94,7 @@
 			padding: 1rem 0;
 			width: 90%;
 			margin: 0 auto;
+			overflow: auto;
 			ul {
 				padding-left: 1rem;
 			}
@@ -102,9 +111,6 @@
 			}
 		}
 	}
-	/*.page_main li, .page_main p {
-		line-height: 1.8;
-	}*/
 	.replay h3 {
 		line-height: 3;
 		padding-left: 5%;

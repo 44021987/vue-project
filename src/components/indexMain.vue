@@ -32,11 +32,14 @@
 			return {
 				articleList: [],
 				limit: 10,
-				loadingData: true
+				loadingData: true,
+				tab: ""
 			}
 		},
 		created () {
-			this.getArticleList();
+			// 在页面刷新的时候根据path重新获取数据
+			this.tab = this.$route.path.split("/").pop();
+			this.getArticleList(this.tab);
 		},
 		methods: {
 			bodyScroll () {
@@ -45,12 +48,12 @@
 				const scrollTop = document.body.scrollTop;
 				const scrollHeight = document.body.scrollHeight;
 				// 上一次数据请求完成后再加载,判断this.loadingData
-				if (parseInt(clientHeight + scrollTop) >  parseInt(scrollHeight/1.2) && this.loadingData) this.getArticleList();
+				if (parseInt(clientHeight + scrollTop) >  parseInt(scrollHeight/1.2) && this.loadingData) this.getArticleList(this.tab);
 			},
 			test () {
 				console.log(this.$route.path)
 			},
-			// 请求数据每次10条
+			// 请求数据每次10条,接收参数为请求数据分类
 			getArticleList (tab="all") {
 				if (!this.loadingData) return;
 				this.loadingData = !this.loadingData;
@@ -97,11 +100,10 @@
 		},
 		watch: {
 			$route (to, from) {
-				console.log()
-				let tab = to.path.split("/").pop();
+				this.tab = to.path.split("/").pop();
 				this.loadingData = true;
 				this.limit = 10;
-				this.getArticleList(tab)
+				this.getArticleList(this.tab)
 			}
 
 		}
@@ -109,7 +111,6 @@
 </script>
 
 <style lang="less">
-	
 	.content_main {
 		.main_list_wrap {
 			overflow: hidden;
