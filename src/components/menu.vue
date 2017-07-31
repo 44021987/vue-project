@@ -7,23 +7,23 @@
 			</li>
 			<li>
 				<i class="fa fa-thumbs-up"></i>
-				<router-link :to="{name: 'RootPath', params: {id: 'good'}}" @click.native="hideMenu">精华</router-link>
+				<router-link :to="{name: 'RootPath', query: {tab: 'good'}}" @click.native="hideMenu">精华</router-link>
 			</li>
 			<li>
 				<i class="fa fa-share-alt"></i>
-				<router-link :to="{name: 'RootPath', params: {id: 'share'}}" @click.native="hideMenu">分享</router-link>
+				<router-link :to="{name: 'RootPath', query: {tab: 'share'}}" @click.native="hideMenu">分享</router-link>
 			</li>
 			<li>
 				<i class="fa fa-chain"></i>
-				<router-link :to="{name: 'RootPath', params: {id: 'ask'}}" @click.native="hideMenu">问答</router-link>
+				<router-link :to="{name: 'RootPath', query: {tab: 'ask'}}" @click.native="hideMenu">问答</router-link>
 			</li>
 			<li class="border">
 				<i class="fa fa-users"></i>
-				<router-link :to="{name: 'RootPath', params: {id: 'job'}}" @click.native="hideMenu">招聘</router-link>
+				<router-link :to="{name: 'RootPath', query: {tab: 'job'}}" @click.native="hideMenu">招聘</router-link>
 			</li>
 			<li>
 				<i class="fa fa-github"></i>
-				<router-link :to="{name: 'RootPath', params: {id: 'job'}}" @click.native="hideMenu">关于</router-link>
+				<router-link :to="{name: 'AboutRouter'}" @click.native="hideMenu">关于</router-link>
 			</li>
 		</ul>
 	</div>

@@ -38,7 +38,7 @@
 		},
 		created () {
 			// 在页面刷新的时候根据path重新获取数据
-			this.tab = this.$route.path.split("/").pop();
+			this.tab = this.$route.query.tab;
 			this.getArticleList(this.tab);
 		},
 		methods: {
@@ -100,7 +100,7 @@
 		},
 		watch: {
 			$route (to, from) {
-				this.tab = to.path.split("/").pop();
+				this.tab = to.query.tab;
 				this.loadingData = true;
 				this.limit = 10;
 				this.getArticleList(this.tab)

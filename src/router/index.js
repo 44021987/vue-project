@@ -1,8 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Home from '@/components/index'
 import IndexMain from '@/components/IndexMain'
 import Article from '@/components/Article'
 import Users from '@/components/Users'
+import About from '@/components/About'
 
 Vue.use(Router)
 Router.prototype.goBack = function () { 
@@ -12,7 +14,12 @@ Router.prototype.goBack = function () {
 export default new Router({
   routes: [
     {
-      path: '/:id',
+      path: '/',
+      name: 'Home',
+      component: Home
+    },
+    {
+      path: '/list',
       name: 'RootPath',
       component: IndexMain
     },
@@ -25,6 +32,11 @@ export default new Router({
       path: '/user/:id',
       name: 'UsersRouter',
       component: Users
+    },
+    {
+      path: '/about',
+      name: 'AboutRouter',
+      component: About
     },
     {
     	path: '*',

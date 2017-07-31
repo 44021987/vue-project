@@ -33,11 +33,13 @@
 			},
 			showNav () {
 				this.showCover = !this.showCover;
-				document.body.style.overflow = "hidden";
+//				document.body.style.overflow = "hidden";
+				document.documentElement.className = "no_scroll";
 			},
 			hideNav () {
 				this.showCover = !this.showCover;
-				document.body.style.overflow = "auto";
+//				document.body.style.overflow = "auto";
+				document.documentElement.className = "";
 			},
 			// 设置head部分的title
 			getHeadTitle (route) {
@@ -57,13 +59,12 @@
 						this.showBack = !this.showBack;
 						break;
 					default:
-						this.title = "123";
+						this.title = "";
 						break;
 				}
 			},
 			getPath (tab) {
 				let str = "";
-				console.log(tab)
 				switch (tab){
 					case "all":
 						str = "全部";
@@ -100,6 +101,15 @@
 </script>
 
 <style lang="less">
+	.no_scroll {
+		overflow: hidden;
+		height: 100%;
+		.no_scroll body {
+			overflow: hidden;
+			position: relative;
+		}
+	}
+	
 	#header {
 		position: fixed;
 		top: 0;

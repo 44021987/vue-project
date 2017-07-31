@@ -61,8 +61,8 @@
 	  color: #2c3e50;
 	}
 	#content {
-		margin-top: .5rem;
-		padding-top: 50px;
+		margin-top: 50px;
+		padding-top: .5rem;
 	}
 	/*后退*/
 	.slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active {

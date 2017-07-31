@@ -81,7 +81,7 @@
 		text-align: left;
 		.article_title {
 			line-height: 4rem;
-			font-size: 16px;
+			font-size: 18px;
 			padding-left: 1rem;
 			background: #fff;
 			
