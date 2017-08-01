@@ -33,13 +33,11 @@
 			},
 			showNav () {
 				this.showCover = !this.showCover;
-//				document.body.style.overflow = "hidden";
-				document.documentElement.className = "no_scroll";
+				document.querySelector(".page").classList.add("fixed", "slide_right");
 			},
 			hideNav () {
 				this.showCover = !this.showCover;
-//				document.body.style.overflow = "auto";
-				document.documentElement.className = "";
+				document.querySelector(".page").classList.remove("slide_right", "fixed");
 			},
 			// 设置head部分的title
 			getHeadTitle (route) {
@@ -101,15 +99,6 @@
 </script>
 
 <style lang="less">
-	.no_scroll {
-		overflow: hidden;
-		height: 100%;
-		.no_scroll body {
-			overflow: hidden;
-			position: relative;
-		}
-	}
-	
 	#header {
 		position: fixed;
 		top: 0;
@@ -146,9 +135,9 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		bottom: 0;
-		right: 0;
-		background: rgba(0,0,0,.4);
+		width: 100%;
+		height: 100%;
+		background: rgba(0,0,0,.2);
 		z-index: 1;
 	}
 </style>

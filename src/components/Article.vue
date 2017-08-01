@@ -26,6 +26,7 @@
 
 <script>
 	import sideSec from '@/components/indexSide';
+	import timeago from 'timeago.js';
 	export default {
 		components: {
 			sideSec
@@ -80,9 +81,9 @@
 		overflow: hidden;
 		text-align: left;
 		.article_title {
-			line-height: 4rem;
+			padding: 2rem 1rem;
+			line-height: 1.5;
 			font-size: 18px;
-			padding-left: 1rem;
 			background: #fff;
 			
 		}
@@ -108,6 +109,7 @@
 			p {
 				margin-bottom: 10px;
 				text-indent: 2;
+				text-align: justify;
 			}
 		}
 	}

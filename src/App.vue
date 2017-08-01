@@ -1,10 +1,12 @@
 <template>
   <div id="app">
-  	<o-head></o-head>
-  	<div id="content">
-  		<transition :name="transitionName" mode="out-in" keep-alive>
-	  			<router-view></router-view>
-  		</transition>
+  	<div class="page">
+  		<o-head></o-head>
+  		<div class="page_content">
+	  		<transition :name="transitionName" mode="out-in" keep-alive>
+		  			<router-view></router-view>
+	  		</transition>
+  		</div>
   	</div>
   </div>
 </template>
@@ -60,9 +62,22 @@
 	  text-align: center;
 	  color: #2c3e50;
 	}
-	#content {
-		margin-top: 50px;
-		padding-top: .5rem;
+	.page {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		transition: all .3s ease;
+	}
+	.page.slide_right {
+		transform: translateX(200px);
+	}
+	.fixed {
+		position: fixed;
+		top: 0;
+		left: 0;
+	}
+	.page_content {
+		padding-top: 4rem;
 	}
 	/*后退*/
 	.slide-right-enter-active, .slide-right-leave-active, .slide-left-enter-active, .slide-left-leave-active {

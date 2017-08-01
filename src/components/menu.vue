@@ -55,10 +55,7 @@
 		width: 200px;
 		z-index: 99;
 		background: #fff;
-		transition: all .3s ease;
-		&.show {
-			transform: translateX(200px);
-		}
+		overflow-y: auto;
 		li {
 			display: flex;
 			list-style: none;

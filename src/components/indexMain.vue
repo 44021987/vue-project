@@ -16,7 +16,7 @@
 							</p>
 							<p style="font-size: 12px;">
 								<span>创建于：{{item.create_at.match(/.{10}/)[0]}}</span>
-								<span>{{item.last_reply_at.match(/.{10}/)[0]}}</span>
+								<span>{{getTimeAgo(item.last_reply_at)}}</span>
 							</p>
 						</div>
 					</div>
@@ -27,6 +27,7 @@
 </template>
 
 <script>
+	import timeago from 'timeago.js';
 	export default {
 		data () {
 			return {
@@ -42,6 +43,9 @@
 			this.getArticleList(this.tab);
 		},
 		methods: {
+			getTimeAgo (str) {
+				return timeago().format(str, 'zh_CN')
+			},
 			bodyScroll () {
 				// 页面滚动到一定位置加载数据
 				const clientHeight = document.documentElement.clientHeight;
