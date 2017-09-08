@@ -26,7 +26,6 @@
 
 <script>
 	import sideSec from '@/components/indexSide';
-	import timeago from 'timeago.js';
 	export default {
 		components: {
 			sideSec

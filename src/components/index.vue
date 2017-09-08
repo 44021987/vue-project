@@ -18,8 +18,8 @@
 
 <style lang="less">
 	#loading {
-		position: absolute;
-		top: -50px;
+		position: fixed;
+		top: 0px;
 		left: 0;
 		bottom: 0;
 		right: 0;

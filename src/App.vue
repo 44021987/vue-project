@@ -3,7 +3,7 @@
   	<div class="page">
   		<o-head></o-head>
   		<div class="page_content">
-	  		<transition :name="transitionName" mode="out-in" keep-alive>
+	  		<transition :name="transitionName" mode="out-in">
 		  			<router-view></router-view>
 	  		</transition>
   		</div>
@@ -26,13 +26,14 @@
 	  },
 	  watch: {
 	  	'$route' (to, from) {
-	  		let isBack = this.$router.isBack
-	  		if (isBack) {
-	  		   this.transitionName = 'slide-left'
-	  		} else {
-	  		   this.transitionName = 'slide-right'
-	  		}
-	  		this.$router.isBack = false;
+	  		const toDepth = to.path.split('/').length
+		    const fromDepth = from.path.split('/').length
+		    if (this.$router.isBack){
+		    	this.transitionName = 'slide-left';
+		    	this.$router.isBack = false;
+		    	return;
+		    };
+		    this.transitionName = toDepth < fromDepth ? 'slide-left' : 'slide-right'
 	  	}
 	  }
 	}
