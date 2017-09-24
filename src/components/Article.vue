@@ -1,20 +1,19 @@
 <template>
 	<div class="page_wrapper" v-loading="loading">
 		<h1 class="article_title">{{dataList.title}}</h1>
-		<side-sec :dataList="dataList"></side-sec>
+		 <side-sec v-if="!loading" :dataList="dataList"></side-sec> 
 		<div class="page_main" v-html="dataList.content"></div>
-		<div class="replay">
-			<h3 v-show="!!replies">评论</h3>
+		<div class="replay" v-if="replies.length">
+			<h3>评论</h3>
 			<div class="replay_wrapper" v-for="item in replies">
 				<div class="replay_head">
 					<div>
-						<router-link :to="{name: 'UsersRouter', params: {id: item.author.loginname}}">
-							<!--<img class="main_list_img" :src="item.author.avatar_url" :title="item.author.loginname"/>-->
+						 <router-link :to="{name: 'UsersRouter', params: {id: item.author.loginname}}"> 
 							<img :src="item.author.avatar_url" class="replay_img"/>
-						</router-link>
+						 </router-link> 
 					</div>
 					<div>
-						<h1>{{item.author.loginname}}</h1>
+						 <h1>{{item.author.loginname}}</h1> 
 						<div class="replay_time">{{String(item.create_at).match(/.{10}/)[0]}}</div>
 					</div>
 				</div>
@@ -33,28 +32,31 @@
 		data () {
 			return {
 				dataList: [],
+				replies: [],
 				loading: true
 			}
 		},
-		computed: {
-			replies () {
-				if (!this.dataList.replies) return;
-				return this.dataList.replies.reverse();
-			}
+		mounted () {
+			setTimeout(() => {
+				this.getReplies();
+			}, 20)
 		},
-		beforeCreate () {
-			this.$http({
-                url: `https://cnodejs.org/api/v1${this.$route.path}`,
-                method: 'get',
-            }).then((res) => {
-                if (res.statusText === "OK") {
-                    this.dataList = res.data.data;
-                } else {
-                    this.dataList = 'Sorry, Something wrong happened when getting the remote data';
-                }
-            }).catch((res) => {
-                console.log('ArticleCom.vue: ', res);
-            });
+		methods: {
+			getReplies () {
+				this.$http({
+						url: `https://cnodejs.org/api/v1${this.$route.path}`,
+						method: 'get',
+				}).then((res) => {
+						if (res.statusText === "OK") {
+								this.dataList = res.data.data;
+								this.replies = this.dataList.replies.reverse();
+						} else {
+								this.dataList = '获取数据失败';
+						}
+				}).catch((res) => {
+						console.log('ArticleCom.vue: ', res);
+				});
+			}
 		},
 		updated () {
 			var oTag = [...document.querySelectorAll("replay .markdown-text")];

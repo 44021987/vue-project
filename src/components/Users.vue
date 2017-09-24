@@ -1,5 +1,5 @@
 <template>
-	<div class="user_wrapper" v-loading="loading">
+	<div class="user_wrapper" v-loading="loading" v-if="!loading">
 		<div class="user_author">
 			<div>
 				<img :src="userInfo.avatar_url" alt="userInfo.loginname" />
@@ -13,7 +13,7 @@
 				<h5><i class="fa fa-calendar"></i>&nbsp; {{String(userInfo.create_at).match(/.{10}/)[0]}}</h5>
 			</div>
 		</div>
-		<div class="user_active"  v-show="userInfo.recent_replies.length>0">
+		<div class="user_active"  v-show="userInfo.recent_replies.length">
 			<h2>最近参与的话题</h2>
 			<ul>
 				<li v-for="item of userInfo.recent_replies">
@@ -31,7 +31,7 @@
 				</li>
 			</ul>
 		</div>
-		<div class="user_create" v-show="userInfo.recent_topics.length>0">
+		<div class="user_create" v-show="userInfo.recent_topics.length">
 			<h2>最近创建的话题</h2>
 			<ul>
 				<li v-for="item of userInfo.recent_topics">
@@ -61,27 +61,27 @@
 			}
 		},
 		created() {
-            this.$http({
-                url: `https://cnodejs.org/api/v1${this.$route.path}`,
-                method: 'get',
-            }).then((res) => {
-                this.userInfo = res.data.data;
-            }).catch((res) => {
-                console.log('UserCom.vue: ', res);
-            });
-        },
-        beforeRouteUpdate (to, from, next) {
-        	this.$http({
-                url: `https://cnodejs.org/api/v1${to.path}`,
-                method: 'get',
-            }).then((res) => {
-                this.userInfo = res.data.data;
-            }).catch((res) => {
-                console.log('UserCom.vue: ', res);
-            });
-            next();
-        },
-        watch: {
+				this.$http({
+						url: `https://cnodejs.org/api/v1${this.$route.path}`,
+						method: 'get',
+				}).then((res) => {
+						this.userInfo = res.data.data;
+				}).catch((res) => {
+						console.log('UserCom.vue: ', res);
+				});
+		},
+		beforeRouteUpdate (to, from, next) {
+			this.$http({
+						url: `https://cnodejs.org/api/v1${to.path}`,
+						method: 'get',
+				}).then((res) => {
+						this.userInfo = res.data.data;
+				}).catch((res) => {
+						console.log('UserCom.vue: ', res);
+				});
+				next();
+		},
+		watch: {
 			userInfo (val) {
 				if (val) this.loading = false;
 			}
@@ -138,6 +138,8 @@
 				padding-bottom: 1rem;
 				a {
 					font-size: 16px;
+					white-sapce: nowrap;
+					text-overflow: ellipsis;
 				}
 			}
 			h6 {
