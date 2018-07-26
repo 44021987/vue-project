@@ -11,7 +11,8 @@
 </template>
 
 <script>
-	import Menu from '@/components/menu.vue';
+  import Menu from '@/components/menu.vue';
+  import {getTabTile} from '@/utils';
 	export default {
 		components: {
 			menuNav: Menu
@@ -44,7 +45,7 @@
 				this.showBack = true;
 				switch (this.$route.name) {
 					case "RootPath":
-						this.title = this.getPath(route);
+						this.title = getTabTile(route);
 						break;
 					case "ArticleRouter":
 						this.title = "文章";
@@ -60,33 +61,6 @@
 						this.title = "";
 						break;
 				}
-			},
-			getPath (tab) {
-				let str = "";
-				switch (tab){
-					case "all":
-						str = "全部";
-						break;
-					case "good":
-						str = "精华";
-						break;
-					case "ask":
-						str = "问答";
-						break;
-					case "share":
-						str = "分享";
-						break;
-					case "job":
-						str = "招聘";
-						break;
-					case "about":
-						str = "关于";
-						break;
-					default:
-						str = "";
-						break;
-				}
-				return str;
 			}
 		},
 		watch: {
